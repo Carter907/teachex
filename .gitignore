@@ -1,8 +1,8 @@
 # web stuff
-node_modules
-dist
-build
-.angular
+node_modules/
+dist/
+dist/angular-project/
+.angular/
 
 
 # Compiled class files
