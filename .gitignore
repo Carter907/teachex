@@ -1,4 +1,14 @@
 .idea
-dist
-node_modules
+node_modules/
+dist/
 .angular
+.env
+*.log
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+/coverage
+/e2e/protractor.conf.js
+/cypress/videos/
+/cypress/screenshots/
