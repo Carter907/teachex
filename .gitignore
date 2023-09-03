@@ -1,14 +1,48 @@
-.idea
-node_modules/
-dist/
+# web stuff
+node_modules
+dist
+build
 .angular
-.env
-*.log
+
+
+# Compiled class files
+build/
+bin/
+
+# Logs and other generated files
+build.log
+.gradle/
 .idea/
-.vscode/
+
+
+# IntelliJ IDEA files (if you're using IntelliJ IDEA as your IDE)
+*.iml
+
+# Eclipse files (if you're using Eclipse as your IDE)
+.settings/
+.classpath
+.project
+
+# OS-specific files
 .DS_Store
 Thumbs.db
-/coverage
-/e2e/protractor.conf.js
-/cypress/videos/
-/cypress/screenshots/
+
+# Ignore generated JAR files or other artifacts
+*.jar
+
+# Exclude any local configuration files that may contain sensitive information
+gradle.properties
+
+# Exclude user-specific IDE files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/dictionaries/
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+
+# Exclude macOS metadata files
+._*
+
+# Exclude build directories for different Gradle versions
+/out/
