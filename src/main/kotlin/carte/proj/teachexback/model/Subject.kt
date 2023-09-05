@@ -4,5 +4,6 @@ enum class Subject {
     MATH,
     SCIENCE,
     HUMANITIES,
-    ENGINEERING
+    ENGINEERING,
+    PROGRAMMING,
 }
