@@ -26,6 +26,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import {MatDialogModule} from "@angular/material/dialog";
+import { AboutSectionHomeComponent } from './components/about-section-home/about-section-home.component';
+import {MatLineModule, MatRippleModule} from "@angular/material/core";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 const routes: Routes = [
     {path: "", component: HomeComponent},
@@ -38,6 +43,7 @@ const routes: Routes = [
         HomeComponent,
         NavBarComponent,
         LoginComponent,
+        AboutSectionHomeComponent,
     ],
     imports: [
         BrowserModule,
@@ -63,7 +69,12 @@ const routes: Routes = [
         MatRadioModule,
         MatCardModule,
         ReactiveFormsModule,
-        MatDialogModule
+        MatDialogModule,
+        MatLineModule,
+        MatRippleModule,
+        MatButtonToggleModule,
+        MatChipsModule,
+        MatCheckboxModule
 
 
     ],
