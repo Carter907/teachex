@@ -22,11 +22,21 @@ data class Student(
         ]
     )
     var courses: Set<Course> = HashSet(),
+
+    @ManyToMany(cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "students_teachers",
+        joinColumns = [JoinColumn(name = "student_id")],
+        inverseJoinColumns = [
+            JoinColumn(name = "teacher_id")
+        ]
+    )
+    var teachers: Set<Teacher> = HashSet(),
+
     var firstName: String,
     var lastName: String,
     var username: String,
 
     var password: String,
 
-    ) {
-}
+    )

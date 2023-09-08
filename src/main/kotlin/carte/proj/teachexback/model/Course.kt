@@ -10,13 +10,17 @@ data class Course(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long,
+
         @ManyToMany(cascade = [CascadeType.ALL], mappedBy = "courses")
         var students: Set<Student> = HashSet(),
+
         @Column(unique = true)
         var name: String,
+
         var startDate: LocalDate,
+
         var endDate: LocalDate,
+
         @Enumerated(EnumType.STRING)
         var subject: Subject,
-) {
-}
+)

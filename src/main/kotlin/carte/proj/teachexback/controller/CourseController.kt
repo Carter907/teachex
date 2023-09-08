@@ -4,6 +4,7 @@ import carte.proj.teachexback.model.Course
 import carte.proj.teachexback.service.CourseService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,7 +23,7 @@ class CourseController(
     val service: CourseService
 ) {
     @GetMapping("/all")
-    fun getAllCourses() = service.getAllCourses();
+    fun getAllCourses(auth: Authentication) = service.getAllCourses();
 
     @ResponseStatus(HttpStatus.OK, reason = "added course")
     @PostMapping(consumes = ["application/json"])

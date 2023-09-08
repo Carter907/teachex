@@ -9,12 +9,15 @@ data class Teacher(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
+
     var firstName: String,
+
     var lastName: String,
+
     @Email
     var email: String,
 
+    @ManyToMany(cascade = [CascadeType.ALL], mappedBy = "teachers")
+    var students: Set<Student> = HashSet()
 
-
-) {
-}
+)
