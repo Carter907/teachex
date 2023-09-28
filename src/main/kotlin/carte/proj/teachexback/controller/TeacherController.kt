@@ -9,12 +9,13 @@ import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/api/teachers")
 @CrossOrigin("http://localhost:4200")
 class TeacherController(
     val service: TeacherService
 ) {
     @GetMapping("/all")
-    fun getAllTeacher(auth: Authentication) = service.getAllTeachers();
+    fun getAllTeacher() = service.getAllTeachers();
 
     @ResponseStatus(HttpStatus.OK, reason = "added teacher")
     @PostMapping(consumes = ["application/json"])

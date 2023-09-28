@@ -23,7 +23,7 @@ class CourseController(
     val service: CourseService
 ) {
     @GetMapping("/all")
-    fun getAllCourses(auth: Authentication) = service.getAllCourses();
+    fun getAllCourses() = service.getAllCourses();
 
     @ResponseStatus(HttpStatus.OK, reason = "added course")
     @PostMapping(consumes = ["application/json"])
