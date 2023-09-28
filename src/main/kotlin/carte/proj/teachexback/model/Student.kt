@@ -11,7 +11,7 @@ data class Student(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     @JoinTable(
         name = "attended_courses",
         joinColumns = [
@@ -23,7 +23,7 @@ data class Student(
     )
     var courses: Set<Course> = HashSet(),
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     @JoinTable(
         name = "students_teachers",
         joinColumns = [JoinColumn(name = "student_id")],
