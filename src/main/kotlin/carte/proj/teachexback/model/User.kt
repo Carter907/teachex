@@ -7,7 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails
 class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long = 0,
+    @Column(unique = true)
     private var username: String,
     private var password: String,
     @ManyToMany(fetch = FetchType.EAGER)

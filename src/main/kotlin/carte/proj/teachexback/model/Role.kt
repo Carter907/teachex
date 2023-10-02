@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority
 class Role(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long = 0,
     private var authority: String,
 ) : GrantedAuthority {
 
