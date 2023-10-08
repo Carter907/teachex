@@ -6,7 +6,6 @@ import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet
 import com.nimbusds.jose.jwk.source.JWKSource
 import com.nimbusds.jose.proc.SecurityContext
-import org.springframework.boot.autoconfigure.security.oauth2.resource.reactive.JwkSetUriReactiveJwtDecoderBuilderCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -23,6 +22,8 @@ import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtEncoder
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter
 import org.springframework.security.web.SecurityFilterChain
 
 @Configuration
@@ -48,10 +49,14 @@ class SecurityConfiguration(private val keys: RSAKeyProperties) {
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it.requestMatchers("/auth/**").permitAll();
+                it.requestMatchers("/admin/**").hasRole("ADMIN");
+                it.requestMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 it.anyRequest().authenticated()
             }
-            .oauth2ResourceServer { it.jwt(Customizer.withDefaults()) }
-            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)}
+            .oauth2ResourceServer { oAuth2ResourceServerConfigurer ->
+                oAuth2ResourceServerConfigurer.jwt { it.jwtAuthenticationConverter(jwtAuthenticationConverter()) }
+            }
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .build()
     }
 
@@ -59,10 +64,22 @@ class SecurityConfiguration(private val keys: RSAKeyProperties) {
     fun jwtDecoder(): JwtDecoder {
         return NimbusJwtDecoder.withPublicKey(keys.pubKey).build();
     }
+
     @Bean
     fun jwtEncoder(): JwtEncoder {
         val jwk = RSAKey.Builder(keys.pubKey).privateKey(keys.privateKey).build();
         val source: JWKSource<SecurityContext> = ImmutableJWKSet(JWKSet(jwk))
         return NimbusJwtEncoder(source)
+    }
+
+    @Bean
+    fun jwtAuthenticationConverter(): JwtAuthenticationConverter {
+        val jwtGrantedAuthsConverter = JwtGrantedAuthoritiesConverter();
+        jwtGrantedAuthsConverter.setAuthoritiesClaimName("roles");
+        jwtGrantedAuthsConverter.setAuthorityPrefix("ROLE_");
+        val jwtAuthConverter = JwtAuthenticationConverter();
+        jwtAuthConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthsConverter);
+
+        return jwtAuthConverter;
     }
 }
